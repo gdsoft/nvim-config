@@ -14,8 +14,14 @@ Sessionx.vim
 # Temporary
 .netrwhist
 *~
+tmp
 # Auto-generated tag files
 tags
 # Persistent undo
 [._]*.un~
 
+*.bak
+*.ok
+*.toml
+plugin
+nvim.1000
