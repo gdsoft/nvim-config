@@ -1,3 +1,5 @@
+-- Neovim 配置实战：从0到1打造己的IDE
+-- https://juejin.cn/book/7051157342770954277
 -- 基础配置
 require('basic')
 -- Packer插件管理

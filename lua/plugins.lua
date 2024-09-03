@@ -42,7 +42,6 @@ packer.startup(function(use)
     'neovim/nvim-lspconfig',
     config = function()
       -- npm install -g intelephense
-      -- npm install -g @olrtg/emmet-language-server
       require('lspconfig').intelephense.setup({
         settings = {
           intelephense = {
