@@ -41,34 +41,16 @@ packer.startup(function(use)
   use({
     'neovim/nvim-lspconfig',
     config = function()
-      -- npm install -g intelephense
-      require('lspconfig').intelephense.setup({
-        settings = {
-          intelephense = {
-            stubs = {
-              'bcmath',
-              'bz2',
-              'calendar',
-              'Core',
-              'curl',
-              'zip',
-              'zlib',
-              'wordpress',
-              'woocommerce',
-              'acf-pro',
-              'wordpress-globals',
-              'wp-cli',
-              'genesis',
-              'polylang',
-            },
-            environment = {
-              includePaths = '/home/guodong/.composer/vendor/php-stubs/',
-            },
-            files = {
-              maxSize = 5000000,
-            },
-          },
-        },
+      -- composer global require phpactor/phpactor
+      local lspconfig = require('lspconfig')
+      lspconfig.phpactor.setup({
+        cmd = { 'phpactor', 'language-server' },
+        filetypes = { 'php' },
+        root_dir = function(pattern)
+          local cwd = vim.loop.cwd()
+          local root = require('lspconfig.util').root_pattern('composer.json', '.git')(pattern)
+          return require('lspconfig.util').path.is_descendant(cwd, root) and cwd or root
+        end,
       })
     end,
   })
