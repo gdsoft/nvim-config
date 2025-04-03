@@ -35,7 +35,10 @@ packer.startup(function(use)
     })
 
     --------------------- LSP --------------------
+    --nvim-lsp-installer
     --use('williamboman/nvim-lsp-installer')
+
+    --mason
     use({
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim', -- 与 Mason 集成
@@ -95,6 +98,7 @@ packer.startup(function(use)
     use('mattn/emmet-vim')
 
     -- 补全引擎
+    --use('L3MON4D3/LuaSnip')
     use('hrsh7th/nvim-cmp')
     -- snippet 引擎
     use('hrsh7th/vim-vsnip')
@@ -104,6 +108,14 @@ packer.startup(function(use)
     use('hrsh7th/cmp-buffer') -- { name = 'buffer' },
     use('hrsh7th/cmp-path') -- { name = 'path' }
     use('hrsh7th/cmp-cmdline') -- { name = 'cmdline' }
+
+    use({
+        'lewis6991/gitsigns.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('gitsigns').setup()
+        end,
+    })
 
     -- 常见编程语言代码段
     use('rafamadriz/friendly-snippets')
