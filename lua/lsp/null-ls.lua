@@ -1,4 +1,4 @@
-local status, null_ls = pcall(require, 'null-ls')
+local status, null_ls = pcall(require, 'none-ls')
 if not status then
   vim.notify('没有找到 null-ls')
   return
@@ -12,12 +12,9 @@ null_ls.setup({
   debug = false,
   sources = {
     -- Formatting ---------------------
-    --  brew install shfmt
     formatting.shfmt,
-    -- StyLua
     formatting.stylua,
-    -- frontend
-    formatting.prettier.with({ -- 比默认少了 markdown
+    formatting.prettier.with({
       filetypes = {
         'javascript',
         'javascriptreact',
@@ -35,23 +32,19 @@ null_ls.setup({
       extra_filetypes = { 'njk' },
       prefer_local = 'node_modules/.bin',
     }),
-    -- Diagnostics  ---------------------
-    diagnostics.eslint.with({
+    -- Diagnostics ---------------------
+    diagnostics.eslint_d.with({
       prefer_local = 'node_modules/.bin',
     }),
-    -- code actions ---------------------
+    -- Code actions ---------------------
     code_actions.gitsigns,
-    code_actions.eslint.with({
+    code_actions.eslint_d.with({
       prefer_local = 'node_modules/.bin',
     }),
   },
-  -- #{m}: message
-  -- #{s}: source name (defaults to null-ls if not specified)
-  -- #{c}: code (if available)
-  -- 提示格式： [eslint] xxx
   diagnostics_format = '[#{s}] #{m}',
   on_attach = function(client)
-    -- 自定义 :Format 命令
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()']])
   end,
 })
+

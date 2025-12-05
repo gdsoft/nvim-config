@@ -85,7 +85,11 @@ require("lazy").setup({
 
   -- 代码格式化 (新增)
   -- { "mhartington/formatter.nvim" },
-  { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  -- { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
   -- { "neoclide/coc.nvim" },
 
   -- emmet
