@@ -86,10 +86,7 @@ require("lazy").setup({
   -- 代码格式化 (新增)
   -- { "mhartington/formatter.nvim" },
   -- { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
+  { "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
   -- { "neoclide/coc.nvim" },
 
   -- emmet
@@ -124,8 +121,9 @@ require("lazy").setup({
   -- JSON 增强
   { "b0o/schemastore.nvim" },
 
-  -- TS utils
-  { "jose-elias-alvarez/nvim-lsp-ts-utils", dependencies = { "nvim-lua/plenary.nvim" } },
+  -- TypeScript 增强（替代 nvim-lsp-ts-utils）
+  { "jose-elias-alvarez/typescript.nvim", dependencies = { "neovim/nvim-lspconfig" } },
+
 })
 
 -- 每次保存 plugins.lua 自动同步 lazy.nvim
