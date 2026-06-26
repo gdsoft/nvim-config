@@ -1,19 +1,5 @@
--- Lazy.nvim 安装
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- 最新稳定版
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
 -- 插件列表
-require("lazy").setup({
+return {
   -- colorschemes
   { "folke/tokyonight.nvim" },
   { "mhartington/oceanic-next" },
@@ -122,20 +108,6 @@ require("lazy").setup({
   { "b0o/schemastore.nvim" },
 
   -- TypeScript 增强（替代 nvim-lsp-ts-utils）
-  { "jose-elias-alvarez/typescript.nvim", dependencies = { "neovim/nvim-lspconfig" } },
+  { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } }
 
-})
-
--- 每次保存 plugins.lua 自动同步 lazy.nvim
-pcall(
-  vim.cmd,
-  [[
-  augroup lazy_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | Lazy sync
-  augroup END
-  ]]
-)
-
-local telescope = require("telescope")
-pcall(telescope.load_extension, "env")
+}
