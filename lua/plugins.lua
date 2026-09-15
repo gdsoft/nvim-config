@@ -9,88 +9,94 @@ return {
   { "EdenEast/nightfox.nvim" },
 
   -- nvim-tree
-  { "kyazdani42/nvim-tree.lua", dependencies = { "kyazdani42/nvim-web-devicons" } },
+  { "nvim-tree/nvim-tree.lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
 
   -- bufferline
   {
     "akinsho/bufferline.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "moll/vim-bbye" },
   },
 
-  -- LSP
+  -- LSP / Mason（语言服务器装配见 lua/lsp/setup.lua）
   {
     "williamboman/mason.nvim",
     dependencies = {
-      "williamboman/mason-lspconfig.nvim", -- 与 Mason 集成
-      "neovim/nvim-lspconfig",             -- LSP 配置
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
     },
-    build = ":MasonUpdate", -- 确保 Mason 插件更新
-    config = function()
-      -- 使用 Mason-Lspconfig 来管理 Language Server 的安装和配置
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "phpactor" }, -- 自动安装 phpactor
-      })
+    build = ":MasonUpdate",
+  },
 
-      -- 使用新的 API 配置 phpactor
-      vim.lsp.config("phpactor", {
-        cmd = { "phpactor", "language-server" },
-        filetypes = { "php" },
-        root_dir = function(pattern)
-          local cwd = vim.loop.cwd()
-          local root = require("lspconfig.util").root_pattern("composer.json", ".git")(pattern)
-          return require("lspconfig.util").path.is_descendant(cwd, root) and cwd or root
-        end,
-      })
+  -- Rust 增强（rust-analyzer 由其接管）
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^5",
+    lazy = false,
+    config = function()
+      vim.g.rustaceanvim = {
+        tools = { autoSetHints = true },
+        server = {
+          on_attach = function(client, bufnr)
+            local function buf_set_keymap(mode, lhs, rhs, opts)
+              vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {})
+            end
+            require("keybindings").mapLSP(buf_set_keymap)
+          end,
+        },
+      }
     end,
   },
 
-  -- lualine
-  { "nvim-lualine/lualine.nvim", dependencies = { "kyazdani42/nvim-web-devicons" } },
-  { "arkav/lualine-lsp-progress" },
+  -- 调试 (DAP)
+  { "mfussenegger/nvim-dap", lazy = true },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    lazy = true,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    dependencies = { "mfussenegger/nvim-dap" },
+    lazy = true,
+  },
 
-  -- PHP
-  { "beanworks/vim-phpfmt" },
-  { "StanAngeloff/php.vim" },
-  { "vim-vdebug/vdebug" },
+  -- lualine
+  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 
   -- telescope
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
-  -- telescope extensions
-  { "LinArcX/telescope-env.nvim" },
-
   -- dashboard-nvim
-  { "glepnir/dashboard-nvim" },
+  { "nvimdev/dashboard-nvim" },
 
-  -- project
-  { "ahmedkhalf/project.nvim" },
+  -- treesitter（统一配置见 lua/plugin-config/nvim-treesitter.lua）
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+  },
 
-  -- treesitter
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  -- 浮动窗口终端
+  { "akinsho/toggleterm.nvim", version = "*" },
 
-  -- 代码格式化 (新增)
-  -- { "mhartington/formatter.nvim" },
-  -- { "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+  -- 代码格式化/lint（配置见 lua/lsp/null-ls.lua）
   { "nvimtools/none-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
-  -- { "neoclide/coc.nvim" },
-
-  -- emmet
-  { "mattn/emmet-vim" },
 
   -- 补全引擎
-  -- { "L3MON4D3/LuaSnip" },
   { "hrsh7th/nvim-cmp" },
 
   -- snippet 引擎
-  { "hrsh7th/vim-vsnip" },
+  {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp",
+  },
 
   -- 补全源
-  { "hrsh7th/cmp-vsnip" },
-  { "hrsh7th/cmp-nvim-lsp" }, -- { name = nvim_lsp }
-  { "hrsh7th/cmp-buffer" },   -- { name = 'buffer' }
-  { "hrsh7th/cmp-path" },     -- { name = 'path' }
-  { "hrsh7th/cmp-cmdline" },  -- { name = 'cmdline' }
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "saadparwaiz1/cmp_luasnip" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
 
   -- gitsigns
   {
@@ -103,11 +109,4 @@ return {
 
   -- 常见编程语言代码段
   { "rafamadriz/friendly-snippets" },
-
-  -- JSON 增强
-  { "b0o/schemastore.nvim" },
-
-  -- TypeScript 增强（替代 nvim-lsp-ts-utils）
-  { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } }
-
 }

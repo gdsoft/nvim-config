@@ -38,6 +38,10 @@ map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
 map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
 map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
 map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
+-- toggleterm 方向切换
+map("n", "<leader>th", [[<cmd>ToggleTerm direction=horizontal<CR>]], opt)
+map("n", "<leader>tv", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
+map("n", "<leader>tm", [[<cmd>ToggleTerm direction=float<CR>]], opt)   -- 浮动窗口模式
 -- visual模式下缩进代码
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)

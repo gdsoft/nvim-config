@@ -6,6 +6,15 @@ end
 
 -- 列表操作快捷键
 local list_keys = require('keybindings').nvimTreeList
+
+-- 目录树使用独立背景色，与编辑区区分
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "NvimTree",
+  callback = function()
+    vim.cmd("highlight NvimTreeNormal guifg=#abb2bf guibg=#16161e")
+  end,
+})
+
 nvim_tree.setup({
   -- 不显示 git 状态图标
   git = {
@@ -17,9 +26,9 @@ nvim_tree.setup({
     enable = true,
     update_cwd = true,
   },
-  -- 隐藏 .文件 和 node_modules 文件夹
+  -- 过滤规则
   filters = {
-    dotfiles = true,
+    dotfiles = false,
     custom = { 'node_modules' },
   },
   view = {
@@ -46,8 +55,8 @@ nvim_tree.setup({
     open_file = {
       -- 首次打开大小适配
       resize_window = true,
-      -- 打开文件时关闭
-      quit_on_open = true,
+      -- 打开文件时保持目录树开启
+      quit_on_open = false,
     },
   },
   -- wsl install -g wsl-open

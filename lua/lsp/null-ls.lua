@@ -1,50 +1,21 @@
-local status, null_ls = pcall(require, 'none-ls')
+local status, null_ls = pcall(require, "null-ls")
 if not status then
-  vim.notify('没有找到 null-ls')
+  vim.notify("Not found none-ls!")
   return
 end
 
 local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup({
   debug = false,
   sources = {
-    -- Formatting ---------------------
-    formatting.shfmt,
+    formatting.clang_format,
     formatting.stylua,
-    formatting.prettier.with({
-      filetypes = {
-        'javascript',
-        'javascriptreact',
-        'typescript',
-        'typescriptreact',
-        'vue',
-        'css',
-        'scss',
-        'less',
-        'html',
-        'json',
-        'yaml',
-        'graphql',
-      },
-      extra_filetypes = { 'njk' },
-      prefer_local = 'node_modules/.bin',
-    }),
-    -- Diagnostics ---------------------
-    diagnostics.eslint_d.with({
-      prefer_local = 'node_modules/.bin',
-    }),
-    -- Code actions ---------------------
-    code_actions.gitsigns,
-    code_actions.eslint_d.with({
-      prefer_local = 'node_modules/.bin',
-    }),
+    formatting.shfmt,
   },
-  diagnostics_format = '[#{s}] #{m}',
-  on_attach = function(client)
-    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()']])
+  on_attach = function(client, bufnr)
+    vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
+      vim.lsp.buf.format({ bufnr = bufnr })
+    end, { desc = "Format current buffer" })
   end,
 })
-
