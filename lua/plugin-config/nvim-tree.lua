@@ -7,13 +7,9 @@ end
 -- 列表操作快捷键
 local list_keys = require('keybindings').nvimTreeList
 
--- 目录树使用独立背景色，与编辑区区分
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "NvimTree",
-  callback = function()
-    vim.cmd("highlight NvimTreeNormal guifg=#abb2bf guibg=#16161e")
-  end,
-})
+-- 目录树始终使用独立背景色（无论是否有焦点）
+vim.api.nvim_set_hl(0, 'NvimTreeNormal', { fg = '#abb2bf', bg = '#16161e' })
+vim.api.nvim_set_hl(0, 'NvimTreeNormalNC', { fg = '#abb2bf', bg = '#16161e' })
 
 nvim_tree.setup({
   -- 不显示 git 状态图标
