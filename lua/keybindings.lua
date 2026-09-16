@@ -31,14 +31,8 @@ map("n", "<C-Up>", ":resize -2<CR>", opt)
 -- 等比例
 map("n", "s=", "<C-w>=", opt)
 -- Terminal相关
-map("n", "<leader>t", ":sp | terminal<CR>", opt)
-map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
-map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
--- toggleterm 方向切换
+map("n", "<leader>t", [[<cmd>ToggleTerm direction=horizontal<CR>]], opt)
+map("n", "<leader>vt", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
 map("n", "<leader>th", [[<cmd>ToggleTerm direction=horizontal<CR>]], opt)
 map("n", "<leader>tv", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
 map("n", "<leader>tm", [[<cmd>ToggleTerm direction=float<CR>]], opt)   -- 浮动窗口模式
