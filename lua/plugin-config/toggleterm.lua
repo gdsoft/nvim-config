@@ -34,3 +34,21 @@ require("toggleterm").setup({
 -- 定义高亮组（放 setup 外部，colorscheme 后生效）
 vim.api.nvim_set_hl(0, "TermNormal", { bg = "#181825" })
 vim.api.nvim_set_hl(0, "TermBorder", { fg = "#585b70", bg = "#181825" })
+
+local copilot_cli = require("toggleterm.terminal").Terminal:new({
+  cmd = "copilot",
+  direction = "float",
+  hidden = true,
+  close_on_exit = true,
+  float_opts = {
+    border = "curved",
+    winblend = 3,
+  },
+  on_open = function()
+    vim.cmd("startinsert!")
+  end,
+})
+
+vim.keymap.set({ "n", "t" }, "<leader>ai", function()
+  copilot_cli:toggle()
+end, { desc = "Toggle Copilot CLI" })

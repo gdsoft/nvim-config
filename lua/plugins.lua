@@ -98,6 +98,9 @@ return {
   { "hrsh7th/cmp-path" },
   { "hrsh7th/cmp-cmdline" },
 
+  -- GitHub Copilot（AI 补全）
+  { "github/copilot.vim" },
+
   -- gitsigns
   {
     "lewis6991/gitsigns.nvim",

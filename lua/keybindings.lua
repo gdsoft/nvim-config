@@ -31,11 +31,25 @@ map("n", "<C-Up>", ":resize -2<CR>", opt)
 -- 等比例
 map("n", "s=", "<C-w>=", opt)
 -- Terminal相关
-map("n", "<leader>t", [[<cmd>ToggleTerm direction=horizontal<CR>]], opt)
 map("n", "<leader>vt", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
 map("n", "<leader>th", [[<cmd>ToggleTerm direction=horizontal<CR>]], opt)
 map("n", "<leader>tv", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
 map("n", "<leader>tm", [[<cmd>ToggleTerm direction=float<CR>]], opt)   -- 浮动窗口模式
+-- Copilot
+map("n", "<leader>cp", ":Copilot panel<CR>", opt)
+map("n", "<leader>ce", ":Copilot enable<CR>", opt)
+map("n", "<leader>cd", ":Copilot disable<CR>", opt)
+-- Git 差分（gitsigns）
+map("n", "]c", ":Gitsigns next_hunk<CR>", opt)
+map("n", "[c", ":Gitsigns prev_hunk<CR>", opt)
+map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opt)
+map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opt)
+map("n", "<leader>hS", ":Gitsigns stage_buffer<CR>", opt)
+map("n", "<leader>hR", ":Gitsigns reset_buffer<CR>", opt)
+map("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", opt)
+map("n", "<leader>hb", ":Gitsigns blame_line<CR>", opt)
+map("n", "<leader>hd", ":Gitsigns diffthis<CR>", opt)
+map("n", "<leader>tb", ":Gitsigns toggle_current_line_blame<CR>", opt)
 -- visual模式下缩进代码
 map("v", "<", "<gv", opt)
 map("v", ">", ">gv", opt)
