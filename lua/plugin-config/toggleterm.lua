@@ -6,7 +6,7 @@ require("toggleterm").setup({
       return vim.o.columns * 0.4
     end
   end,
-  open_mapping = [[<c-t>]],          -- Ctrl+t 切换显示/隐藏
+  -- open_mapping = [[<c-t>]],          -- Ctrl+t 切换显示/隐藏
   hide_numbers = true,
   shade_filetypes = {},
   auto_scroll = true,
@@ -49,6 +49,60 @@ local copilot_cli = require("toggleterm.terminal").Terminal:new({
   end,
 })
 
-vim.keymap.set({ "n", "t" }, "<leader>ai", function()
+vim.keymap.set({ "n", "t" }, "<leader>cc", function()
   copilot_cli:toggle()
 end, { desc = "Toggle Copilot CLI" })
+
+local copilot_right = require("toggleterm.terminal").Terminal:new({
+  cmd = "copilot",
+  direction = "vertical",
+  size = function(term)
+    return vim.o.columns * 0.35
+  end,
+  hidden = true,
+  close_on_exit = true,
+  on_open = function(term)
+    vim.cmd("startinsert!")
+    vim.api.nvim_win_set_option(term.window, "winhl", "Normal:TermNormal,FloatBorder:TermBorder")
+  end,
+})
+
+vim.keymap.set({ "n", "t" }, "<leader>cv", function()
+  copilot_right:toggle()
+end, { desc = "Toggle Copilot Vertical (35%)" })
+
+local opencode_cli = require("toggleterm.terminal").Terminal:new({
+  cmd = "opencode",
+  direction = "float",
+  hidden = true,
+  close_on_exit = false,
+  float_opts = {
+    border = "curved",
+    winblend = 3,
+  },
+  on_open = function()
+    vim.cmd("startinsert!")
+  end,
+})
+
+vim.keymap.set({ "n", "t" }, "<leader>oc", function()
+  opencode_cli:toggle()
+end, { desc = "Toggle OpenCode" })
+
+local opencode_right = require("toggleterm.terminal").Terminal:new({
+  cmd = "opencode",
+  direction = "vertical",
+  size = function(term)
+    return vim.o.columns * 0.35
+  end,
+  hidden = true,
+  close_on_exit = false,
+  on_open = function(term)
+    vim.cmd("startinsert!")
+    vim.api.nvim_win_set_option(term.window, "winhl", "Normal:TermNormal,FloatBorder:TermBorder")
+  end,
+})
+
+vim.keymap.set({ "n", "t" }, "<leader>ov", function()
+  opencode_right:toggle()
+end, { desc = "Toggle OpenCode Vertical (35%)" })

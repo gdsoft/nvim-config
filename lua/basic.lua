@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 vim.g.maplocalleader = " "
 
 -- utf8
@@ -58,7 +58,7 @@ vim.o.swapfile = false
 -- smaller updatetime
 vim.o.updatetime = 300
 -- 设置 timeoutlen 为等待键盘快捷键连击时间500毫秒，可根据需要设置
-vim.o.timeoutlen = 500
+vim.o.timeoutlen = 300
 -- split window 从下边和右边出现
 vim.o.splitbelow = true
 vim.o.splitright = true

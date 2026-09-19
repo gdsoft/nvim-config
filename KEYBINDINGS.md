@@ -10,13 +10,14 @@
 | `sh` | 水平分屏 |
 | `sc` | 关闭当前窗口 |
 | `so` | 只保留当前窗口 |
-| `Alt-h/j/k/l` | 在窗口之间移动 |
+| `Alt-h/j/k/l` | 在窗口之间移动（支持普通模式及终端/OpenCode 内部） |
 | `Ctrl-Left/Right` | 调整垂直尺寸 |
 | `Ctrl-Up/Down` | 调整水平尺寸 |
 | `s=` | 窗口等比例 |
 | `<C-t>` | 切换终端显示/隐藏 |
+| `<leader>th` | 打开水平终端 |
 | `<leader>tv` | 打开垂直终端 |
-| `<leader>tm` | 打开浮动终端 |
+| `<leader>tc` | 打开浮动终端 |
 
 ## 文件、缓冲区与搜索
 
@@ -31,12 +32,15 @@
 | `Ctrl-f` | Telescope 全局搜索 |
 | `Alt-m` | 开关文件树 |
 
-## Copilot
+## Copilot / OpenCode
 
 | 快捷键 | 作用 |
 |---|---|
 | `<leader>cp` | 打开 Copilot panel |
-| `<leader>ai` | 打开/隐藏 Copilot CLI 悬浮终端 |
+| `<leader>cc` | 打开/隐藏 Copilot CLI 悬浮终端 |
+| `<leader>cl` | 打开/隐藏 Copilot 右侧终端 (35%) |
+| `<leader>oc` | 打开/隐藏 OpenCode 悬浮终端 |
+| `<leader>ol` | 打开/隐藏 OpenCode 右侧终端 (35%) |
 | `<leader>ce` | 启用 Copilot |
 | `<leader>cd` | 禁用 Copilot |
 

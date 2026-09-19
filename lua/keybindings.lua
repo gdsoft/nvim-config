@@ -18,6 +18,15 @@ map("n", "<A-h>", "<C-w>h", opt)
 map("n", "<A-j>", "<C-w>j", opt)
 map("n", "<A-k>", "<C-w>k", opt)
 map("n", "<A-l>", "<C-w>l", opt)
+-- 终端模式下也可以用 Alt + hjkl 直接跳转窗口
+map("t", "<A-h>", [[<C-\><C-n><C-w>h]], opt)
+map("t", "<A-j>", [[<C-\><C-n><C-w>j]], opt)
+map("t", "<A-k>", [[<C-\><C-n><C-w>k]], opt)
+map("t", "<A-l>", [[<C-\><C-n><C-w>l]], opt)
+-- 终端模式下直接用 leader 键切换/关闭终端（无需先按 Esc）
+map("t", "<leader>th", [[<C-\><C-n><cmd>ToggleTerm direction=horizontal<CR>]], opt)
+map("t", "<leader>tv", [[<C-\><C-n><cmd>ToggleTerm direction=vertical<CR>]], opt)
+map("t", "<leader>tc", [[<C-\><C-n><cmd>ToggleTerm direction=float<CR>]], opt)
 -- 左右比例控制
 map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
 map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
@@ -31,10 +40,10 @@ map("n", "<C-Up>", ":resize -2<CR>", opt)
 -- 等比例
 map("n", "s=", "<C-w>=", opt)
 -- Terminal相关
-map("n", "<leader>vt", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
+vim.keymap.set({ "n", "i", "t" }, "<A-t>", [[<C-\><C-n><cmd>ToggleTerm direction=float<CR>]], opt)
 map("n", "<leader>th", [[<cmd>ToggleTerm direction=horizontal<CR>]], opt)
 map("n", "<leader>tv", [[<cmd>ToggleTerm direction=vertical<CR>]], opt)
-map("n", "<leader>tm", [[<cmd>ToggleTerm direction=float<CR>]], opt)   -- 浮动窗口模式
+map("n", "<leader>tc", [[<cmd>ToggleTerm direction=float<CR>]], opt)   -- 浮动窗口模式 (center)
 -- Copilot
 map("n", "<leader>cp", ":Copilot panel<CR>", opt)
 map("n", "<leader>ce", ":Copilot enable<CR>", opt)
