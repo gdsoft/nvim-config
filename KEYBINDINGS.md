@@ -1,6 +1,6 @@
 # Neovim 快捷键
 
-这份文档对应当前 `~/.config/nvim` 配置。默认 `<leader>` 是空格键。
+这份文档对应当前 `~/.config/nvim` 配置。默认 `<leader>` 是逗号 `,`。
 
 ## 窗口与终端
 
