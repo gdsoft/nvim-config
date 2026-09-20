@@ -67,3 +67,12 @@ nvim_tree.setup({
 vim.cmd([[
   autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]])
+
+-- 启动时智能自动打开 nvim-tree（无参数或打开目录时）
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 or (vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1) then
+      require("nvim-tree.api").tree.open()
+    end
+  end,
+})
