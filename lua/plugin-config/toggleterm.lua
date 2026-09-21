@@ -28,7 +28,7 @@ require("toggleterm").setup({
   },
   on_open = function(term)
     -- 统一应用终端高亮组（split/float 通用）
-    vim.api.nvim_win_set_option(term.window, "winhl", "Normal:TermNormal,FloatBorder:TermBorder")
+    vim.api.nvim_set_option_value("winhl", "Normal:TermNormal,FloatBorder:TermBorder", { win = term.window })
   end,
 })
 
@@ -80,7 +80,7 @@ local copilot_right = require("toggleterm.terminal").Terminal:new({
   close_on_exit = true,
   on_open = function(term)
     vim.cmd("startinsert!")
-    vim.api.nvim_win_set_option(term.window, "winhl", "Normal:TermNormal,FloatBorder:TermBorder")
+    vim.api.nvim_set_option_value("winhl", "Normal:TermNormal,FloatBorder:TermBorder", { win = term.window })
   end,
 })
 
@@ -118,7 +118,7 @@ local opencode_right = require("toggleterm.terminal").Terminal:new({
   close_on_exit = false,
   on_open = function(term)
     vim.cmd("startinsert!")
-    vim.api.nvim_win_set_option(term.window, "winhl", "Normal:TermNormal,FloatBorder:TermBorder")
+    vim.api.nvim_set_option_value("winhl", "Normal:TermNormal,FloatBorder:TermBorder", { win = term.window })
   end,
 })
 
